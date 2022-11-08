@@ -85,21 +85,6 @@ class EntryContainer extends Component {
         className={`liveblog-entry ${entry.key_event ? 'is-key-event' : ''} ${entry.css_classes}`}
       >
         <aside className="liveblog-entry-aside">
-          <a className="liveblog-meta-time" href={entry.share_link} target="_blank">
-            <span>{timeAgo(entry.entry_time)}</span>
-            <span>{formattedTime(entry.entry_time, config.utc_offset, config.date_format)}</span>
-          </a>
-        </aside>
-        <div className="liveblog-entry-main">
-          {this.state.showPopup ?
-            <DeleteConfirmation
-              text="Are you sure you want to delete this entry?"
-              onConfirmDelete={this.delete}
-              onCancel={this.togglePopup.bind(this)}
-            />
-            : null
-          }
-          {
             (entry.authors && entry.authors.length > 0) &&
             <header className="liveblog-meta-authors">
               {
@@ -116,6 +101,20 @@ class EntryContainer extends Component {
                 ))
               }
             </header>
+        </aside>
+        <div className="liveblog-entry-main">
+          {this.state.showPopup ?
+            <DeleteConfirmation
+              text="Are you sure you want to delete this entry?"
+              onConfirmDelete={this.delete}
+              onCancel={this.togglePopup.bind(this)}
+            />
+            : null
+          }
+          {
+					<a className="liveblog-meta-time" href={entry.share_link} target="_blank">
+            <span>{timeAgo(entry.entry_time)}</span>
+          </a>
           }
           {
             this.isEditing()
